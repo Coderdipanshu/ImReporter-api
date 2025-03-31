@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
+import java.util.Map;
+@CrossOrigin(origins = "http://127.0.0.1:5500") 
 @RestController
 @RequestMapping("/api/crimes")
 public class CrimeController {
@@ -57,12 +58,12 @@ public class CrimeController {
         }
     }
 
-    /**
-     * Get all crimes by state
+  /**
+     * Get all crimes by state (returns Base64 image)
      */
     @GetMapping("/state/{state}")
-    public ResponseEntity<List<Crime>> getCrimesByState(@PathVariable String state) {
-        List<Crime> crimes = crimeService.getByState(state);
+    public ResponseEntity<List<Map<String, Object>>> getCrimesByState(@PathVariable String state) {
+        List<Map<String, Object>> crimes = crimeService.getByState(state);
         return ResponseEntity.ok(crimes);
     }
 
@@ -70,10 +71,10 @@ public class CrimeController {
      * Get all crimes by state and district
      */
     @GetMapping("/state/{state}/district/{district}")
-    public ResponseEntity<List<Crime>> getCrimesByStateAndDistrict(
+    public ResponseEntity<List<Map<String, Object>>> getCrimesByStateAndDistrict(
             @PathVariable String state,
             @PathVariable String district) {
-        List<Crime> crimes = crimeService.getByStateAndDistrict(state, district);
+        List<Map<String, Object>> crimes = crimeService.getByStateAndDistrict(state, district);
         return ResponseEntity.ok(crimes);
     }
 
@@ -81,11 +82,11 @@ public class CrimeController {
      * Get crimes by state, district, and crime type
      */
     @GetMapping("/state/{state}/district/{district}/{crimeType}")
-    public ResponseEntity<List<Crime>> getCrimesByStateDistrictAndCrimeType(
+    public ResponseEntity<List<Map<String, Object>>> getCrimesByStateDistrictAndCrimeType(
             @PathVariable String state,
             @PathVariable String district,
             @PathVariable String crimeType) {
-        List<Crime> crimes = crimeService.getByStateDistrictAndCrimeType(state, district, crimeType);
+        List<Map<String, Object>> crimes = crimeService.getByStateDistrictAndCrimeType(state, district, crimeType);
         return ResponseEntity.ok(crimes);
     }
 
@@ -93,12 +94,12 @@ public class CrimeController {
      * Get crimes by state, district, crime type, and category
      */
     @GetMapping("/state/{state}/district/{district}/{crimeType}/{category}")
-    public ResponseEntity<List<Crime>> getCrimesByStateDistrictCrimeTypeAndCategory(
+    public ResponseEntity<List<Map<String, Object>>> getCrimesByStateDistrictCrimeTypeAndCategory(
             @PathVariable String state,
             @PathVariable String district,
             @PathVariable String crimeType,
             @PathVariable String category) {
-        List<Crime> crimes = crimeService.getByStateDistrictCrimeTypeAndCategory(state, district, crimeType, category);
+        List<Map<String, Object>> crimes = crimeService.getByStateDistrictCrimeTypeAndCategory(state, district, crimeType, category);
         return ResponseEntity.ok(crimes);
     }
 
@@ -115,7 +116,7 @@ public class CrimeController {
 
         try {
             LocalDate parsedDate = LocalDate.parse(date, DATE_FORMATTER);
-            List<Crime> crimes = crimeService.getByStateDistrictCrimeTypeCategoryAndDate(state, district, crimeType, category, parsedDate);
+            List<Map<String, Object>> crimes = crimeService.getByStateDistrictCrimeTypeCategoryAndDate(state, district, crimeType, category, parsedDate);
             return ResponseEntity.ok(crimes);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid date format. Please use 'yyyy-MM-dd'.");
