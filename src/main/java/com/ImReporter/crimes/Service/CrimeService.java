@@ -36,6 +36,7 @@ public class CrimeService {
         crimeData.put("district", crime.getDistrict());
         crimeData.put("crimeType", crime.getCrimeType());
         crimeData.put("category", crime.getCategory());
+        crimeData.put("description", crime.getDescription());
         crimeData.put("date", crime.getDate().toString());
         crimeData.put("crimepic", convertImageToBase64(crime.getCrimepic())); // ✅ Convert image
 
