@@ -38,7 +38,7 @@ public class CrimeController {
             @RequestParam("category") String category,
             @RequestParam("description") String description,
             @RequestParam("date") String date, // Format: YYYY-MM-DD
-            @RequestParam(value = "crimepic", required = false) MultipartFile crimepic) {
+            @RequestParam(value = "crimepic", required = true) MultipartFile crimepic) {
 
         try {
             byte[] crimepicData = null;
